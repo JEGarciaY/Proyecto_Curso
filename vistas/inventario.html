@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Inventario</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header>
+    <h1>Inventario</h1>
+    <nav>
+      <a href="../index.html" class="boton">Inicio</a>
+      <a href="inventario.html" class="boton">Inventario</a>
+      <a href="ventas.html" class="boton">Ventas</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h2>Agregar Producto</h2>
+    <div>
+      <input id="nombre" placeholder="Nombre del producto" />
+      <input id="cantidad" type="number" placeholder="Cantidad" />
+      <input id="precio" type="number" placeholder="Precio (COP)" />
+      <button id="btnAgregar">Agregar</button>
+    </div>
+
+    <h3>Inventario</h3>
+    <table>
+      <thead>
+        <tr><th>Nombre</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Acciones</th></tr>
+      </thead>
+      <tbody id="tablaInventario"></tbody>
+    </table>
+    <div id="totalInventario">Total: $0</div>
+  </main>
+
+  <footer><p>© 2025 - Sistema de Inventario</p></footer>
+
+  <script src="../app.js"></script>
+  <script>
+    // inicializa los handlers de esta vista
+    document.getElementById('btnAgregar').addEventListener('click', agregarProducto);
+    mostrarInventario();
+  </script>
+</body>
+</html>
