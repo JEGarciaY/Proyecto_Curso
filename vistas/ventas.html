@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Ventas</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header>
+    <h1>Registrar Venta</h1>
+    <nav>
+      <a href="../index.html" class="boton">Inicio</a>
+      <a href="inventario.html" class="boton">Inventario</a>
+      <a href="ventas.html" class="boton">Ventas</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h2>Registrar Venta</h2>
+    <div>
+      <select id="productoVenta"></select>
+      <input id="cantidadVenta" type="number" placeholder="Cantidad" />
+      <button id="btnVender">Vender</button>
+      <button id="btnLimpiarVentas">Limpiar Histórico</button>
+    </div>
+
+    <h3>Historial de Ventas</h3>
+    <table>
+      <thead>
+        <tr><th>Producto</th><th>Cantidad</th><th>Total (COP)</th></tr>
+      </thead>
+      <tbody id="tablaVentas"></tbody>
+    </table>
+    <div id="totalVenta">Total ventas: $0</div>
+  </main>
+
+  <footer><p>2025 - Sistema de Inventario</p></footer>
+
+  <script src="../app.js"></script>
+  <script>
+    // inicializaciones para Ventas
+    document.getElementById('btnVender').addEventListener('click', realizarVenta);
+    document.getElementById('btnLimpiarVentas').addEventListener('click', limpiarVentas);
+    cargarProductosVenta();
+    mostrarVentas();
+  </script>
+</body>
+</html>

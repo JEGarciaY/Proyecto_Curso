@@ -1,0 +1,96 @@
+/* estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e9ecef;
+  margin: 0;
+  color: #222;
+}
+
+/* header */
+header {
+  background: #8B0000;
+  color: #fff;
+  padding: 16px 10px;
+  text-align: center;
+  border-bottom: 4px solid #5c0000;
+}
+header h1 { margin: 0 0 10px 0; }
+nav { margin-bottom: 6px; }
+
+/* botones del nav */
+nav .boton {
+  display: inline-block;
+  background: #b22222;
+  color: white;
+  padding: 8px 14px;
+  margin: 0 6px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav .boton:hover { background: #a11c1c; }
+
+/* contenedor principal */
+.contenedor {
+  background: #fff;
+  width: 92%;
+  max-width: 1000px;
+  margin: 28px auto;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* inputs y botones */
+input, select, button {
+  padding: 8px;
+  margin: 6px 6px 6px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+input[type="number"] { width: 140px; }
+
+/* estilo tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 14px;
+}
+th, td {
+  border: 1px solid #e6e6e6;
+  padding: 10px;
+  text-align: center;
+}
+th {
+  background: #b22222;
+  color: white;
+}
+
+/* boton eliminar */
+button.eliminar {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button.eliminar:hover { background: #c9302c; }
+
+/* totales */
+#totalInventario, #totalVenta {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 12px;
+  font-size: 16px;
+}
+
+/* footer */
+footer {
+  text-align: center;
+  background: #8B0000;
+  color: white;
+  padding: 10px 0;
+  margin-top: 28px;
+}
