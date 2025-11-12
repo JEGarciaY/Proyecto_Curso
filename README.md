@@ -1,7 +1,7 @@
 ## 📌 Autores
 
-**👨‍💻 Johan García**
-**👨‍💻 Diego Rivera**  
+- 👨‍💻 **Johan García**
+- 👨‍💻 **Diego Rivera**  
 ---
 
 # 🧾 Sistema de Inventario
@@ -65,8 +65,3 @@ Permite agregar, editar y eliminar productos, además de llevar un control visua
    - Inicia en la vista principal (Inicio).
    - Gestiona tus productos desde el apartado de *Inventario*.
    - Registra ventas desde la sección *Ventas*.
-
----
-
-
-
