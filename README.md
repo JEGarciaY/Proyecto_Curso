@@ -1,11 +1,18 @@
 # 💻 Git Pages
 **https://jegarciay.github.io/Proyecto_Curso/**
 
+##  Credenciales de inicio de sesion
+
+usuario: `admin`
+contraseña: `1234`
+
+---
+
 ## 📌 Autores
 
 - 👨‍💻 **Johan García**
 - 👨‍💻 **Diego Rivera**  
- - 👨‍💻 **Iverson Salazar**
+- 👨‍💻 **Iverson Salazar**
  
 ---
 
@@ -75,14 +82,3 @@ Permite agregar, editar y eliminar productos, además de llevar un control visua
 
 ---
 
-## 🔐 Inicio de Sesión
-
-La aplicación incluye una vista de inicio de sesión en `vistas/login.html`. El sistema implementa una autenticación sencilla para controlar el acceso a las secciones protegidas (Inicio, Inventario y Ventas). Para propósitos de demostración se pueden usar credenciales de prueba (por ejemplo: usuario: `admin`, contraseña: `1234`), pero se recomienda configurar un sistema de autenticación seguro en producción.
-
-Comportamiento esperado:
-
-- Al enviar credenciales válidas, el usuario será redirigido al panel de `inicio.html`.
-- Si las credenciales son incorrectas, se mostrará un mensaje de error en la interfaz.
-- El archivo `vistas/login.html` y la lógica en `app.js` (o el controlador correspondiente) manejan la validación y la navegación.
-
----
