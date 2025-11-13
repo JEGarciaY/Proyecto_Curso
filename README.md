@@ -4,7 +4,7 @@
 ##  Credenciales de inicio de sesion
 
 usuario: `admin`
-contraseña: `1234`
+contraseña: `admin123`
 
 ---
 
