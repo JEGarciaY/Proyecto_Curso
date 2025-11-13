@@ -287,7 +287,7 @@ try {
     if (totalEl) totalEl.textContent = `Total ventas: $${formatearCOP(total)}`;
   }
 
-  // --- NUEVO: Modal de confirmación para limpiar ventas ---
+  // --- Modal limpiar ventas ---
   function initVenderButtons() {
     const btnVender = document.getElementById("btnVender");
     if (btnVender) btnVender.addEventListener("click", realizarVenta);
@@ -313,6 +313,28 @@ try {
     }
   }
 
+  /* ---------- MODAL CERRAR SESIÓN ---------- */
+function initCerrarSesionModal() {
+  const btnCerrar = document.getElementById("btnCerrarSesion");
+  const modalEl = document.getElementById("confirmarCerrarSesionModal");
+  const btnConfirmar = document.getElementById("btnConfirmarCerrarSesion");
+
+  if (!btnCerrar || !modalEl || !btnConfirmar) return;
+
+  const modal = new bootstrap.Modal(modalEl);
+
+  btnCerrar.addEventListener("click", () => {
+    modal.show();
+  });
+
+  btnConfirmar.addEventListener("click", () => {
+    localStorage.removeItem("usuarioActivo");
+    modal.hide();
+    window.location.href = "login.html";
+  });
+}
+
+
   /* ---------- Inicialización ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     console.log("app.js cargado - inicializando UI según la página");
@@ -321,12 +343,14 @@ try {
       mostrarInventarioUI();
       initAgregarProducto();
       initFormEditar();
+      initCerrarSesionModal(); // ← inicializa el modal de cerrar sesión
     }
 
     if (document.getElementById("productoVenta")) {
       cargarProductosVenta();
       initVenderButtons();
       mostrarVentasUI();
+      initCerrarSesionModal(); // ← también lo activa en la vista de ventas
     }
   });
 } catch (err) {

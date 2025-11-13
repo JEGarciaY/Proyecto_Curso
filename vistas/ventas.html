@@ -4,17 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ventas - Sistema de Inventario</title>
+
+    <!-- Bootstrap y estilos -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
+
   <body class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="../index.html">Sistema de Inventario</a>
+        <a class="navbar-brand fw-bold" href="../index.html"
+          >Sistema de Inventario</a
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -23,8 +32,9 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-center" id="navVentas">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav mx-auto text-center">
             <li class="nav-item">
               <a class="nav-link" href="inicio.html">Inicio</a>
             </li>
@@ -32,27 +42,37 @@
               <a class="nav-link" href="inventario.html">Inventario</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="ventas.html">Ventas</a>
+              <a class="nav-link active fw-bold" href="ventas.html">Ventas</a>
+            </li>
+          </ul>
+
+          <!-- Botón Cerrar sesión -->
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <button class="btn btn-outline-light btn-sm" id="btnCerrarSesion">
+                <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+              </button>
             </li>
           </ul>
         </div>
       </div>
     </nav>
 
+    <!-- Contenido principal -->
     <main class="container my-4 flex-grow-1">
       <div id="alertContainer"></div>
 
       <!-- Registro de Venta -->
       <div class="card mb-4 shadow-sm">
         <div class="card-body">
-          <h5 class="card-title text-primary">Registrar Venta</h5>
-          <div class="row g-2 align-items-end">
+          <h5 class="card-title text-primary text-center mb-3">Registrar Venta</h5>
+          <div class="row g-2 align-items-end justify-content-center">
             <div class="col-md-6">
-              <label class="form-label">Producto</label>
+              <label class="form-label fw-semibold">Producto</label>
               <select id="productoVenta" class="form-select"></select>
             </div>
             <div class="col-md-3">
-              <label class="form-label">Cantidad</label>
+              <label class="form-label fw-semibold">Cantidad</label>
               <input
                 id="cantidadVenta"
                 type="number"
@@ -61,20 +81,22 @@
               />
             </div>
             <div class="col-md-3 d-grid">
-              <button id="btnLimpiarVentas" class="btn btn-outline-danger mt-2">
-                Limpiar Histórico
+              <button id="btnVender" class="btn btn-success mb-2">
+                <i class="bi bi-cart-check"></i> Vender
               </button>
-              <button id="btnVender" class="btn btn-success">Vender</button>
+              <button id="btnLimpiarVentas" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i> Limpiar Histórico
+              </button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Tabla de Historial de Ventas -->
-      <h5 class="text-primary">Historial de Ventas</h5>
+      <h5 class="text-primary text-center mb-3">Historial de Ventas</h5>
       <div class="table-responsive">
-        <table class="table table-striped align-middle">
-          <thead class="table-primary text-center">
+        <table class="table table-striped align-middle text-center">
+          <thead class="table-primary">
             <tr>
               <th>#</th>
               <th>Producto</th>
@@ -118,40 +140,41 @@
       </div>
     </div>
 
+    <!-- ✅ Modal Confirmar Cierre de Sesión -->
+    <div
+      class="modal fade"
+      id="confirmarCerrarSesionModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title">Cerrar sesión</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body text-center">
+            <p>¿Deseas cerrar sesión?</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="button" id="btnConfirmarCerrarSesion" class="btn btn-danger">
+              Cerrar sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-primary text-white text-center py-3 mt-auto">
       <p class="mb-0">&copy; 2025 - Sistema de Inventario</p>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../app.js"></script>
-
-    <script>
-      const btnLimpiarVentas = document.getElementById("btnLimpiarVentas");
-      const modal = new bootstrap.Modal(document.getElementById("confirmarLimpiarModal"));
-      const btnConfirmar = document.getElementById("btnConfirmarLimpiar");
-
-      // Abrir el modal al presionar el botón "Limpiar Histórico"
-      btnLimpiarVentas.addEventListener("click", () => {
-        modal.show();
-      });
-
-      // Confirmar limpieza del historial
-      btnConfirmar.addEventListener("click", () => {
-        localStorage.removeItem("ventas");
-        document.getElementById("tablaVentas").innerHTML = "";
-        document.getElementById("totalVenta").textContent = "Total ventas: $0";
-        modal.hide();
-
-        // Alerta visual
-        const alertDiv = document.createElement("div");
-        alertDiv.className = "alert alert-info alert-dismissible fade show mt-3";
-        alertDiv.innerHTML = `
-          <strong>Historial eliminado correctamente.</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        document.getElementById("alertContainer").appendChild(alertDiv);
-      });
-    </script>
   </body>
 </html>
