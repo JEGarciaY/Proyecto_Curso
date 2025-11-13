@@ -44,8 +44,8 @@ try {
     inventario.forEach((p, idx) => {
       total += p.precio * p.cantidad;
 
-       const stockBajo = p.cantidad <= 2;
-    if (stockBajo) productosBajoStock++;
+      const stockBajo = p.cantidad <= 2;
+      if (stockBajo) productosBajoStock++;
       tbody.innerHTML += `
         <tr class="${stockBajo ? "table-danger" : ""}">
           <td class="text-center">${idx + 1}</td>
@@ -60,27 +60,28 @@ try {
     });
     if (totalEl) totalEl.textContent = `Total: $${formatearCOP(total)}`;
     if (productosBajoStock > 0) {
-    mostrarAlerta(
-      "warning",
-      `⚠️ ${productosBajoStock} producto(s) con bajo stock (menos de 2 unidades)`,
-      8000
-    );
+      mostrarAlerta(
+        "warning",
+        `⚠️ ${productosBajoStock} producto(s) con bajo stock (menos de 2 unidades)`,
+        8000
+      );
+    }
   }
-  }  
 
-  //iverson
-function imprimirReporte() {
-  const fecha = new Date().toLocaleString("es-CO");
-  const titulo = document.createElement("h3");
-  titulo.textContent = `📋 Reporte de Inventario - ${fecha}`;
-  titulo.style.textAlign = "center";
-  titulo.style.margin = "20px 0";
+  // --- Imprimir reporte de inventario ---
+  function imprimirReporte() {
+    const fecha = new Date().toLocaleString("es-CO");
+    const titulo = document.createElement("h3");
+    titulo.textContent = `📋 Reporte de Inventario - ${fecha}`;
+    titulo.style.textAlign = "center";
+    titulo.style.margin = "20px 0";
 
-  document.body.prepend(titulo);
-  window.print();
-  titulo.remove();
-}
+    document.body.prepend(titulo);
+    window.print();
+    titulo.remove();
+  }
 
+  // --- Agregar producto ---
   function initAgregarProducto() {
     const btn = document.getElementById("btnAgregar");
     if (!btn) return;
@@ -129,6 +130,7 @@ function imprimirReporte() {
     });
   }
 
+  // --- Eliminar producto (modal) ---
   let indexAEliminar = null;
 
   function eliminarProducto(index) {
@@ -153,6 +155,7 @@ function imprimirReporte() {
     };
   }
 
+  // --- Editar producto ---
   window.abrirModalEditar = function (index) {
     const item = inventario[index];
     if (!item)
@@ -273,7 +276,7 @@ function imprimirReporte() {
       tbody.innerHTML += `
         <tr>
           <td class="text-center">${i + 1}</td>
-          <td >${v.nombre}</td>
+          <td>${v.nombre}</td>
           <td class="text-center">${v.cantidad}</td>
           <td class="text-center">$${formatearCOP(v.valorUnitario || 0)}</td>
           <td class="text-center">$${formatearCOP(v.total)}</td>
@@ -284,19 +287,30 @@ function imprimirReporte() {
     if (totalEl) totalEl.textContent = `Total ventas: $${formatearCOP(total)}`;
   }
 
+  // --- NUEVO: Modal de confirmación para limpiar ventas ---
   function initVenderButtons() {
     const btnVender = document.getElementById("btnVender");
     if (btnVender) btnVender.addEventListener("click", realizarVenta);
 
     const btnLimpiar = document.getElementById("btnLimpiarVentas");
-    if (btnLimpiar)
+    const modalLimpiar = document.getElementById("confirmarLimpiarModal");
+    const btnConfirmarLimpiar = document.getElementById("btnConfirmarLimpiar");
+
+    if (btnLimpiar && modalLimpiar && btnConfirmarLimpiar) {
+      const limpiarModal = new bootstrap.Modal(modalLimpiar);
+
       btnLimpiar.addEventListener("click", () => {
-        if (!confirm("¿Borrar todo el historial de ventas?")) return;
+        limpiarModal.show();
+      });
+
+      btnConfirmarLimpiar.addEventListener("click", () => {
         ventas = [];
         guardarVentas();
         mostrarAlerta("info", "Historial de ventas borrado.");
         mostrarVentasUI();
+        limpiarModal.hide();
       });
+    }
   }
 
   /* ---------- Inicialización ---------- */
