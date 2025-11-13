@@ -20,3 +20,21 @@ body {
 .row-zero i {
   margin-right: 5px;
 }
+
+
+/* Estilos para el botón de imprimir reporte */
+@media print {
+  nav, .btn, .alert {
+    display: none !important;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid #888 !important;
+    padding: 6px;
+  }
+}
+/*iverson  */

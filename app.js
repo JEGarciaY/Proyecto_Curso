@@ -40,10 +40,14 @@ try {
     if (!tbody) return;
     tbody.innerHTML = "";
     let total = 0;
+    let productosBajoStock = 0;
     inventario.forEach((p, idx) => {
       total += p.precio * p.cantidad;
+
+      const stockBajo = p.cantidad <= 2;
+      if (stockBajo) productosBajoStock++;
       tbody.innerHTML += `
-        <tr>
+        <tr class="${stockBajo ? "table-danger" : ""}">
           <td class="text-center">${idx + 1}</td>
           <td>${p.nombre}</td>
           <td class="text-center">${p.cantidad}</td>
@@ -55,8 +59,29 @@ try {
         </tr>`;
     });
     if (totalEl) totalEl.textContent = `Total: $${formatearCOP(total)}`;
+    if (productosBajoStock > 0) {
+      mostrarAlerta(
+        "warning",
+        `⚠️ ${productosBajoStock} producto(s) con bajo stock (menos de 2 unidades)`,
+        8000
+      );
+    }
   }
 
+  // --- Imprimir reporte de inventario ---
+  function imprimirReporte() {
+    const fecha = new Date().toLocaleString("es-CO");
+    const titulo = document.createElement("h3");
+    titulo.textContent = `📋 Reporte de Inventario - ${fecha}`;
+    titulo.style.textAlign = "center";
+    titulo.style.margin = "20px 0";
+
+    document.body.prepend(titulo);
+    window.print();
+    titulo.remove();
+  }
+
+  // --- Agregar producto ---
   function initAgregarProducto() {
     const btn = document.getElementById("btnAgregar");
     if (!btn) return;
@@ -105,6 +130,7 @@ try {
     });
   }
 
+  // --- Eliminar producto (modal) ---
   let indexAEliminar = null;
 
   function eliminarProducto(index) {
@@ -129,6 +155,7 @@ try {
     };
   }
 
+  // --- Editar producto ---
   window.abrirModalEditar = function (index) {
     const item = inventario[index];
     if (!item)
@@ -249,7 +276,7 @@ try {
       tbody.innerHTML += `
         <tr>
           <td class="text-center">${i + 1}</td>
-          <td >${v.nombre}</td>
+          <td>${v.nombre}</td>
           <td class="text-center">${v.cantidad}</td>
           <td class="text-center">$${formatearCOP(v.valorUnitario || 0)}</td>
           <td class="text-center">$${formatearCOP(v.total)}</td>
@@ -260,20 +287,53 @@ try {
     if (totalEl) totalEl.textContent = `Total ventas: $${formatearCOP(total)}`;
   }
 
+  // --- Modal limpiar ventas ---
   function initVenderButtons() {
     const btnVender = document.getElementById("btnVender");
     if (btnVender) btnVender.addEventListener("click", realizarVenta);
 
     const btnLimpiar = document.getElementById("btnLimpiarVentas");
-    if (btnLimpiar)
+    const modalLimpiar = document.getElementById("confirmarLimpiarModal");
+    const btnConfirmarLimpiar = document.getElementById("btnConfirmarLimpiar");
+
+    if (btnLimpiar && modalLimpiar && btnConfirmarLimpiar) {
+      const limpiarModal = new bootstrap.Modal(modalLimpiar);
+
       btnLimpiar.addEventListener("click", () => {
-        if (!confirm("¿Borrar todo el historial de ventas?")) return;
+        limpiarModal.show();
+      });
+
+      btnConfirmarLimpiar.addEventListener("click", () => {
         ventas = [];
         guardarVentas();
         mostrarAlerta("info", "Historial de ventas borrado.");
         mostrarVentasUI();
+        limpiarModal.hide();
       });
+    }
   }
+
+  /* ---------- MODAL CERRAR SESIÓN ---------- */
+function initCerrarSesionModal() {
+  const btnCerrar = document.getElementById("btnCerrarSesion");
+  const modalEl = document.getElementById("confirmarCerrarSesionModal");
+  const btnConfirmar = document.getElementById("btnConfirmarCerrarSesion");
+
+  if (!btnCerrar || !modalEl || !btnConfirmar) return;
+
+  const modal = new bootstrap.Modal(modalEl);
+
+  btnCerrar.addEventListener("click", () => {
+    modal.show();
+  });
+
+  btnConfirmar.addEventListener("click", () => {
+    localStorage.removeItem("usuarioActivo");
+    modal.hide();
+    window.location.href = "login.html";
+  });
+}
+
 
   /* ---------- Inicialización ---------- */
   document.addEventListener("DOMContentLoaded", () => {
@@ -283,12 +343,14 @@ try {
       mostrarInventarioUI();
       initAgregarProducto();
       initFormEditar();
+      initCerrarSesionModal(); // ← inicializa el modal de cerrar sesión
     }
 
     if (document.getElementById("productoVenta")) {
       cargarProductosVenta();
       initVenderButtons();
       mostrarVentasUI();
+      initCerrarSesionModal(); // ← también lo activa en la vista de ventas
     }
   });
 } catch (err) {

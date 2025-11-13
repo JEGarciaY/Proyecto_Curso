@@ -1,10 +1,19 @@
 # 💻 Git Pages
 **https://jegarciay.github.io/Proyecto_Curso/**
 
+##  Credenciales de inicio de sesion
+
+usuario: `admin`
+contraseña: `1234`
+
+---
+
 ## 📌 Autores
 
 - 👨‍💻 **Johan García**
 - 👨‍💻 **Diego Rivera**  
+- 👨‍💻 **Iverson Salazar**
+ 
 ---
 
 # 🧾 Sistema de Inventario
@@ -21,6 +30,8 @@ Permite agregar, editar y eliminar productos, además de llevar un control visua
 - 📊 **Dashboard de Inicio:** Muestra estadísticas resumidas de productos, ventas y ganancias.  
 - 💾 **Almacenamiento Local:** Todos los datos se guardan en el navegador mediante **LocalStorage**.  
 - 🧩 **Diseño Responsivo:** Interfaz moderna y adaptable gracias a **Bootstrap 5**.  
+ - 🔔 **Alerta y resalte de bajo stock:** El sistema mostrará una alerta y resaltará visualmente los productos cuya cantidad esté por debajo del umbral definido, para facilitar su reposición.
+ - 📄 **Informe PDF de Inventario:** El sistema permite generar y descargar un informe de inventario en formato PDF con el detalle de los productos, cantidades y observaciones.
 
 ---
 
@@ -68,3 +79,6 @@ Permite agregar, editar y eliminar productos, además de llevar un control visua
    - Inicia en la vista principal (Inicio).
    - Gestiona tus productos desde el apartado de *Inventario*.
    - Registra ventas desde la sección *Ventas*.
+
+---
+
